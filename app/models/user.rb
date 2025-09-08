@@ -6,8 +6,6 @@ class User < ApplicationRecord
          :two_factor_authenticatable,
          :omniauthable, omniauth_providers: [ :saml ]
 
-  enum role: { admin: 0, distributor: 1, customer: 2 } if column_names.include?("role")
-
   has_many :orders
   has_many :messages
 end
