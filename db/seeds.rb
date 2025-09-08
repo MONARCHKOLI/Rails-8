@@ -9,8 +9,21 @@
 #   end
 
 
-Product.create([
-  { name: "Laptop", description: "High performance laptop", price: 1200.50, stock: 10 },
-  { name: "Headphones", description: "Noise-cancelling headphones", price: 200.99, stock: 25 },
-  { name: "Smartphone", description: "Latest model smartphone", price: 999.99, stock: 15 }
-])
+require 'open-uri'
+require 'json'
+
+url = 'https://fakestoreapi.com/products'
+products = JSON.parse(URI.open(url).read)
+
+products.each do |product|
+  Product.create!(
+    name: product['title'],
+    price: product['price'],
+    description: product['description'],
+    stock: rand(10..100),
+    category: product['category'],
+    image_url: product['image'],
+    rating_rate: product['rating']['rate'],
+    rating_count: product['rating']['count']
+  )
+end

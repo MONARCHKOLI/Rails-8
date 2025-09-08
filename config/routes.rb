@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     root to: "home#index", as: :unauthenticated_root
   end
 
-  resources :products, only: [ :index, :show ]
+  resources :products
+  resources :cart_items, only: [ :create, :index, :destroy ]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

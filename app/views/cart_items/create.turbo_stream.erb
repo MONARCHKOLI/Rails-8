@@ -1,0 +1,9 @@
+<%= turbo_stream.replace dom_id(@product, :cart_button) do %>
+  <%= button_to "Remove from Cart", cart_item_path(@cart_item), method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" %>
+<% end %>
+
+<%= turbo_stream.replace "cart_counter" do %>
+  <span id="cart_counter" class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full px-2 py-0.5 text-xs">
+    <%= current_user.cart_items.count %>
+  </span>
+<% end %>
