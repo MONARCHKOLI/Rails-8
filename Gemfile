@@ -8,6 +8,8 @@ gem "propshaft"
 gem "pg", "~> 1.5"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
+# Use SCSS for stylesheets
+gem "sass-rails", ">= 6"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -29,6 +31,20 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+
+# User authentication
+gem "devise"
+# 2FA via TOTP (Google Authenticator)
+gem "devise-two-factor"
+# OTP generation and verification
+gem "rotp"
+# SAML login (for distributors/admins)
+gem "omniauth-saml"
+
+# Pagination
+gem "pagy"
+# human-readable slugs (optional)
+gem "friendly_id"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
