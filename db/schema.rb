@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_08_090359) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_090537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_08_090359) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.string "tracking_number"
+    t.integer "status"
+    t.date "expected_delivery"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_packages_on_order_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -63,4 +73,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_08_090359) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "packages", "orders"
 end
