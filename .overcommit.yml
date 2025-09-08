@@ -1,0 +1,37 @@
+PreCommit:
+  RuboCop:
+    enabled: true
+    on_warn: fail
+    command: ['bundle', 'exec', 'rubocop', '--force-exclusion']
+
+  TrailingWhitespace:
+    enabled: true
+
+  YamlSyntax:
+    enabled: true
+
+  JsonSyntax:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: true
+    command: ['bin/rails', 'db:migrate:status']
+    problem_on_warn: fail
+
+CommitMsg:
+  CapitalizedSubject:
+    enabled: true
+
+  HardTabs:
+    enabled: true
+
+  TextWidth:
+    enabled: true
+    max_subject_width: 72
+    max_body_width: 80
+
+PrePush:
+  RuboCop:
+    enabled: true
+    on_warn: fail
+    command: ['bundle', 'exec', 'rubocop', '--force-exclusion']
