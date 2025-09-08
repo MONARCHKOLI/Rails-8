@@ -4,6 +4,17 @@ class Package < ApplicationRecord
 
   after_update :update_order_status, if: :saved_change_to_status?
 
+  after_update_commit :broadcast_status
+
+  def broadcast_status
+    OrderStatusChannel.broadcast_to(order, {
+      status: status,
+      tracking_number: tracking_number,
+      expected_delivery: expected_delivery
+    })
+  end
+
+
   private
 
   def update_order_status
