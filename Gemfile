@@ -41,6 +41,8 @@ gem "devise"
 gem "devise-two-factor"
 # OTP generation and verification
 gem "rotp"
+# QR code generation
+gem "rqrcode"
 # SAML login (for distributors/admins)
 gem "omniauth-saml"
 

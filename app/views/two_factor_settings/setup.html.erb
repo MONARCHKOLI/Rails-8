@@ -1,0 +1,27 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-2xl shadow">
+  <h2 class="text-xl font-semibold mb-4">Enable Two-Factor Authentication</h2>
+
+  <p class="mb-4">
+    Scan this QR code with your authenticator app (e.g., Google Authenticator, Authy),
+    or manually enter the secret.
+  </p>
+
+  <div class="flex justify-center mb-4">
+    <% require "rqrcode" %>
+    <% qrcode = RQRCode::QRCode.new(@provisioning_uri) %>
+    <%= raw qrcode.as_svg(module_size: 6, standalone: true) %>
+  </div>
+
+  <p class="mb-4 font-mono text-center"><%= @user.otp_secret %></p>
+
+  <%= form_with url: confirm_two_factor_settings_path, method: :post, local: true, class: "space-y-4" do |f| %>
+    <div>
+      <%= label_tag :otp_attempt, "Enter the code from your app", class: "block mb-1 font-medium" %>
+      <%= text_field_tag :otp_attempt, nil,
+            class: "w-full border rounded px-3 py-2",
+            autocomplete: "one-time-code" %>
+    </div>
+
+    <%= f.submit "Confirm & Enable", class: "w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700" %>
+  <% end %>
+</div>

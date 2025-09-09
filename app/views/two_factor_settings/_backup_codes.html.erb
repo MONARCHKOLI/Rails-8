@@ -1,0 +1,19 @@
+<turbo-frame id="backup_codes_frame" class="bg-gray-50 p-6 rounded-lg shadow-md max-w-md mx-auto mt-6">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Backup Codes</h2>
+  <p class="text-gray-600 mb-4">
+    Save these somewhere safe. Each code can be used <strong>once</strong>:
+  </p>
+
+  <ul class="space-y-2 mb-4">
+    <% backup_codes.each do |code| %>
+      <li class="bg-gray-100 text-gray-800 px-3 py-2 rounded font-mono text-sm shadow-inner">
+        <%= code %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= button_to "Regenerate Codes", regenerate_backup_codes_two_factor_settings_path,
+        method: :post,
+        data: { turbo_frame: "backup_codes_frame" },
+        class: "w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded transition-colors duration-200" %>
+</turbo-frame>

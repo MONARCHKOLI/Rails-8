@@ -1,0 +1,24 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-2xl shadow">
+  <h2 class="text-xl font-semibold mb-4">Enter Authentication Code</h2>
+
+  <p class="mb-4 text-gray-600">
+    Open your authenticator app and enter the 6-digit code.
+    You can also use a backup code.
+  </p>
+
+  <%= form_with url: two_factor_session_path, method: :post, local: true, class: "space-y-4" do |f| %>
+    <div>
+      <%= label_tag :otp_attempt, "Authentication Code", class: "block mb-1 font-medium" %>
+      <%= text_field_tag :otp_attempt, nil,
+            class: "w-full border rounded px-3 py-2",
+            autocomplete: "one-time-code" %>
+    </div>
+
+    <div class="flex items-center">
+      <%= check_box_tag :remember_device, "1", false, class: "mr-2" %>
+      <%= label_tag :remember_device, "Remember this device for 30 days" %>
+    </div>
+
+    <%= f.submit "Verify", class: "w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700" %>
+  <% end %>
+</div>
