@@ -27,4 +27,13 @@ class CartItemsController < ApplicationController
       format.html { redirect_to products_path }
     end
   end
+
+  def update
+    @cart_item = current_user.cart_items.find(params[:id])
+    if @cart_item.product.stock >= params[:quantity].to_i
+      redirect_to cart_items_path, notice: "Cart item updated." if @cart_item.update(quantity: params[:quantity])
+    else
+      redirect_to cart_items_path, alert: "Failed to update cart item."
+    end
+  end
 end

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :products
-  resources :cart_items, only: [ :create, :index, :destroy ]
+  resources :cart_items
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

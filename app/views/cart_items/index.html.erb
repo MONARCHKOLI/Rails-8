@@ -13,6 +13,17 @@
             </div>
           </div>
 
+          <!-- Quantity Controls -->
+          <div class="flex items-center space-x-2">
+            <%= button_to "-", cart_item_path(cart_item, quantity: cart_item.quantity - 1), method: :patch, form: { data: { turbo_frame: dom_id(cart_item) } }, disabled: cart_item.quantity <= 1, class: "bg-gray-300 hover:bg-gray-400 text-black font-bold px-2 py-1 rounded disabled:opacity-50" %>
+
+            <span class="px-3 py-1 border rounded bg-white">
+              <%= cart_item.quantity %>
+            </span>
+
+            <%= button_to "+", cart_item_path(cart_item, quantity: cart_item.quantity + 1), method: :patch, form: { data: { turbo_frame: dom_id(cart_item) } }, class: "bg-gray-300 hover:bg-gray-400 text-black font-bold px-2 py-1 rounded", disabled: cart_item.product.stock < cart_item.quantity + 1 %>
+          </div>
+
           <!-- Remove Button -->
           <%= button_to "Remove", cart_item_path(cart_item), method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" %>
         </div>
