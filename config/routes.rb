@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "home/index"
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", sessions: "users/sessions" }
 
   authenticated :user do
     root to: "products#index", as: :authenticated_root
@@ -13,6 +13,21 @@ Rails.application.routes.draw do
   resources :products
   resources :cart_items
 
+  resource :two_factor_settings, only: [ :show ] do
+    collection do
+      get :setup        # scan QR and enter code
+      post :confirm     # confirm setup
+      delete :disable   # disable 2FA
+      post :regenerate_backup_codes
+    end
+  end
+
+  devise_scope :user do
+    get  "users/otp_login",    to: "users/sessions#otp_login"
+    post "users/verify_otp",   to: "users/sessions#verify_otp"
+  end
+
+  resource :two_factor_session, only: [ :new, :create ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
