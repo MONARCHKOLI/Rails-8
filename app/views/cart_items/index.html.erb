@@ -37,7 +37,7 @@
     <div id="<%= dom_id(current_user, :cart) %>">
       <% if current_user.cart_items.any? %>
         <div class="mt-6 text-right">
-          <%= link_to "Checkout", "#", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+          <%= button_to "Checkout", orders_path, method: :post, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
         </div>
       <% else %>
         <p class="text-gray-600">Your cart is empty.</p>

@@ -1,0 +1,11 @@
+<div id="notification_<%= notification.id %>" class="bg-blue-600 text-white p-4 rounded shadow-lg animate-fade-in">
+  <p><%= notification.message %></p>
+</div>
+
+<script>
+  // Remove notification after 5 seconds
+  setTimeout(() => {
+    const el = document.getElementById("notification_<%= notification.id %>");
+    if (el) el.remove();
+  }, 5000);
+</script>

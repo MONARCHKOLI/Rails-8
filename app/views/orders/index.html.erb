@@ -1,0 +1,20 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6">My Orders</h1>
+
+  <% if @orders.any? %>
+    <div class="space-y-4">
+      <% @orders.each do |order| %>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <p class="font-semibold">Order #<%= order.id %> - <%= order.status %> - $<%= number_to_currency(order.total, unit: "", precision: 2) %></p>
+          <ul class="mt-2 ml-4 list-disc">
+            <% order.order_items.each do |item| %>
+              <li><%= item.product.name %> x <%= item.quantity %> = $<%= item.price * item.quantity %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-600">You have not placed any orders yet.</p>
+  <% end %>
+</div>

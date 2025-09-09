@@ -1,0 +1,13 @@
+<h2 class="text-xl font-bold mb-4">Place an Order</h2>
+
+<%= form_with url: orders_path do |f| %>
+  <% @products.each do |product| %>
+    <div class="mb-2 flex items-center justify-between border p-2 rounded">
+      <span><%= product.name %> - $<%= product.price %></span>
+      <input type="number" name="order_items[][quantity]" min="0" value="0" class="w-16 border rounded px-1 py-1">
+      <input type="hidden" name="order_items[][product_id]" value="<%= product.id %>">
+    </div>
+  <% end %>
+
+  <%= f.submit "Place Order", class: "mt-4 px-4 py-2 bg-blue-600 text-white rounded" %>
+<% end %>

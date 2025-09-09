@@ -1,0 +1,8 @@
+<!-- Floating notifications container -->
+<div id="floating_notifications" class="fixed top-4 right-4 z-50 space-y-2">
+  <%= turbo_frame_tag "floating_notifications" do %>
+    <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
+      <%= render partial: "notifications/floating_notification", locals: { notification: notification } %>
+    <% end %>
+  <% end %>
+</div>

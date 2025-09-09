@@ -1,0 +1,3 @@
+<%= turbo_stream.append "floating_notifications" do %>
+  <%= render partial: "notifications/floating_notification", locals: { notification: @notification } %>
+<% end %>
