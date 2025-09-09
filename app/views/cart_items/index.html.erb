@@ -1,0 +1,46 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6">My Cart</h1>
+
+    <div class="space-y-4">
+      <% @cart_items.each do |cart_item| %>
+        <div id="<%= dom_id(cart_item) %>" class="flex items-center justify-between bg-white p-4 rounded-lg shadow">
+          <!-- Product Info -->
+          <div class="flex items-center space-x-4">
+            <img src="<%= cart_item.product.image_url %>" alt="<%= cart_item.product.name %>" class="w-16 h-16 object-cover rounded">
+            <div>
+              <h2 class="text-lg font-semibold"><%= cart_item.product.name %></h2>
+              <p class="text-gray-600">$<%= cart_item.product.price %></p>
+            </div>
+          </div>
+
+          <!-- Quantity Controls -->
+          <div class="flex items-center space-x-2">
+            <%= button_to "-", cart_item_path(cart_item, quantity: cart_item.quantity - 1), method: :patch, form: { data: { turbo_frame: dom_id(cart_item) } }, disabled: cart_item.quantity <= 1, class: "bg-gray-300 hover:bg-gray-400 text-black font-bold px-2 py-1 rounded disabled:opacity-50" %>
+
+            <span class="px-3 py-1 border rounded bg-white">
+              <%= cart_item.quantity %>
+            </span>
+
+            <%= button_to "+", cart_item_path(cart_item, quantity: cart_item.quantity + 1), method: :patch, form: { data: { turbo_frame: dom_id(cart_item) } }, class: "bg-gray-300 hover:bg-gray-400 text-black font-bold px-2 py-1 rounded", disabled: cart_item.product.stock < cart_item.quantity + 1 %>
+          </div>
+
+          <!-- Remove Button -->
+          <%= button_to "Remove", cart_item_path(cart_item), method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="<%= dom_id(current_user, :total_cart_items_amount) %>">
+      <p class="text-lg font-semibold text-gray-700">
+        Total: $<%= number_to_currency(cart_total_amount(@cart_items), unit: "", precision: 2) %>
+      </p>
+    </div>
+    <div id="<%= dom_id(current_user, :cart) %>">
+      <% if current_user.cart_items.any? %>
+        <div class="mt-6 text-right">
+          <%= link_to "Checkout", "#", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+      <% else %>
+        <p class="text-gray-600">Your cart is empty.</p>
+      <% end %>
+    </div>
+</div>

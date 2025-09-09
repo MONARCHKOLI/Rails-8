@@ -1,13 +1,13 @@
 # 🚀 Rails-8
 
-**E-Commerce Platform**  
+**E-Commerce Platform**
 *Built with Rails 8, Turbo, 2FA, and SAML*
 
 ---
 
 ## 📖 Overview
 
-This project is an e-commerce website built with **Ruby on Rails 8** and **Hotwire/Turbo** as the core frontend technology.  
+This project is an e-commerce website built with **Ruby on Rails 8** and **Hotwire/Turbo** as the core frontend technology.
 It is designed with a strong emphasis on security and scalability, providing modern authentication features such as:
 
 - **Two-Factor Authentication (2FA)** for enhanced account security
@@ -129,7 +129,7 @@ OTP_SECRET_KEY=...
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!  
+Contributions, issues, and feature requests are welcome!
 Feel free to open a pull request or create an issue.
 
 ---

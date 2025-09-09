@@ -1,0 +1,56 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6">Products</h1>
+
+  <% if current_user&.admin? %>
+    <div class="mb-4">
+      <%= link_to "Add Product", new_product_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @products.each do |product| %>
+      <div class="border rounded-lg shadow-lg p-4 flex flex-col justify-between">
+        <!-- Product Image -->
+        <% if product.image_url.present? %>
+          <img src="<%= product.image_url %>" alt="<%= product.name %>" class="w-full h-48 object-contain mb-4">
+        <% end %>
+
+        <div>
+          <h2 class="text-xl font-semibold mb-1"><%= product.name %></h2>
+          <p class="text-gray-500 text-sm mb-2"><%= product.category %></p>
+          <p class="text-gray-700 mb-2"><%= truncate(product.description, length: 100) %></p>
+          <p class="mt-2 font-bold">$<%= product.price %></p>
+
+          <% if product.rating_rate.present? %>
+            <p class="text-yellow-500 text-sm mt-1">
+              ⭐ <%= product.rating_rate %> (<%= product.rating_count %> reviews)
+            </p>
+          <% end %>
+
+          <% if current_user&.customer? %>
+            <div class="mt-2">
+              <div id="<%= dom_id(product, :cart_button) %>">
+                <% if current_user.cart_items.exists?(product: product) %>
+                  <%= button_to "Remove from Cart", cart_item_path(current_user.cart_items.find_by(product: product)), method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" %>
+                <% else %>
+                  <%= button_to "Add to Cart", cart_items_path(product_id: product.id), method: :post, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-4 flex justify-between items-center">
+          <%= link_to "View", product_path(product), class: "text-blue-500 hover:underline" %>
+
+          <% if current_user&.admin? %>
+            <div class="space-x-2">
+              <%= link_to "Edit", edit_product_path(product), class: "text-yellow-500 hover:underline" %>
+              <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

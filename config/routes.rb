@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get "home/index"
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  authenticated :user do
+    root to: "products#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: "home#index", as: :unauthenticated_root
+  end
+
+  resources :products
+  resources :cart_items
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

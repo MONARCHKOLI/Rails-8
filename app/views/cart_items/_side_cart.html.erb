@@ -1,0 +1,19 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-bold mb-2">Your Cart</h2>
+
+  <% if cart_items.any? %>
+    <ul class="space-y-2">
+      <% cart_items.each do |item| %>
+        <li class="flex justify-between items-center">
+          <span><%= item.product.name %></span>
+          <span class="font-semibold">$<%= item.product.price %></span>
+        </li>
+      <% end %>
+    </ul>
+    <div class="mt-4 font-bold">
+      Total: $<%= cart_items.sum { |i| i.product.price } %>
+    </div>
+  <% else %>
+    <p class="text-gray-500">Your cart is empty</p>
+  <% end %>
+</div>

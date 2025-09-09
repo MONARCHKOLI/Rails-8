@@ -1,0 +1,27 @@
+<%= turbo_stream.replace dom_id(@product, :cart_button) do %>
+  <%= button_to "Add to Cart", cart_items_path(product_id: @cart_item.product.id), method: :post, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded" %>
+<% end %>
+
+<%= turbo_stream.replace "cart_counter" do %>
+  <span id="cart_counter" class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full px-2 py-0.5 text-xs">
+    <%= current_user.cart_items.count %>
+  </span>
+<% end %>
+
+<%= turbo_stream.remove dom_id(@cart_item) %>
+
+
+<% unless current_user.cart_items.any? %>
+  <!-- Empty State -->
+  <%= turbo_stream.replace dom_id(current_user, :cart) do %>
+    <p class="text-gray-600">Your cart is empty.</p>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(current_user, :total_cart_items_amount) do %>
+  <div id="<%= dom_id(current_user, :total_cart_items_amount) %>">
+    <p class="text-lg font-semibold text-gray-700">
+      Total: $<%= number_to_currency(cart_total_amount(current_user.cart_items), unit: "", precision: 2) %>
+    </p>
+  </div>
+<% end %>
